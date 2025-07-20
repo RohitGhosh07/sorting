@@ -26,15 +26,17 @@ class ModernBarVisualizer extends StatelessWidget {
   Color _getBarColor(BuildContext context, bool isHighlighted, int index) {
     final theme = Theme.of(context);
     final baseColor = accentColor ?? theme.colorScheme.primary;
-    
+
     if (isHighlighted) {
       return baseColor;
     }
-    
+
     // Create gradient effect based on value
     final hsl = HSLColor.fromColor(baseColor);
     final progress = numbers[index] / numbers.reduce((a, b) => a > b ? a : b);
-    return hsl.withLightness((hsl.lightness * 0.5 + progress * 0.5).clamp(0.0, 1.0)).toColor();
+    return hsl
+        .withLightness((hsl.lightness * 0.5 + progress * 0.5).clamp(0.0, 1.0))
+        .toColor();
   }
 
   @override
@@ -50,7 +52,8 @@ class ModernBarVisualizer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: List.generate(numbers.length, (index) {
             final bool isHighlighted = highlightedIndices.contains(index);
-            final double normalizedHeight = (numbers[index] / maxNumber) * maxHeight;
+            final double normalizedHeight =
+                (numbers[index] / maxNumber) * maxHeight;
 
             return Expanded(
               child: Column(
@@ -61,10 +64,14 @@ class ModernBarVisualizer extends StatelessWidget {
                     duration: const Duration(milliseconds: 200),
                     style: TextStyle(
                       fontSize: fontSize,
-                      fontWeight: isHighlighted ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: isHighlighted
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                       color: isHighlighted
                           ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.onBackground.withOpacity(0.7),
+                          : Theme.of(
+                              context,
+                            ).colorScheme.onBackground.withOpacity(0.7),
                     ),
                     child: Text('${numbers[index]}'),
                   ),
@@ -73,27 +80,25 @@ class ModernBarVisualizer extends StatelessWidget {
                   TweenAnimationBuilder<double>(
                     duration: const Duration(milliseconds: 200),
                     curve: Curves.easeInOut,
-                    tween: Tween<double>(
-                      begin: 0,
-                      end: normalizedHeight,
-                    ),
+                    tween: Tween<double>(begin: 0, end: normalizedHeight),
                     builder: (context, value, child) => Container(
                       width: double.infinity,
                       margin: const EdgeInsets.symmetric(horizontal: 1),
                       height: value,
                       decoration: BoxDecoration(
                         color: _getBarColor(context, isHighlighted, index),
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(4),
+                        ),
                         boxShadow: isHighlighted
                             ? [
                                 BoxShadow(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .withOpacity(0.3),
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.primary.withOpacity(0.3),
                                   blurRadius: 8,
                                   spreadRadius: 2,
-                                )
+                                ),
                               ]
                             : null,
                       ),

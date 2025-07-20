@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/sorting_provider.dart';
-import '../widgets/bar_visualizer.dart';
+import '../widgets/modern_bar_visualizer.dart';
 import '../algorithms/sorting_algorithms.dart';
 
 class SortingScreen extends StatefulWidget {
@@ -191,10 +191,11 @@ class _SortingScreenState extends State<SortingScreen> {
                       ),
                       child: LayoutBuilder(
                         builder: (context, constraints) {
-                          return BarVisualizer(
+                          return ModernBarVisualizer(
                             numbers: provider.numbers,
                             highlightedIndices: provider.highlightedIndices,
                             maxHeight: constraints.maxHeight,
+                            accentColor: Theme.of(context).colorScheme.primary,
                           );
                         },
                       ),

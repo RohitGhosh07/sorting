@@ -79,7 +79,7 @@ class SortingProvider with ChangeNotifier {
 
   // Speed control
   void setSpeed(double newSpeed) {
-    if (newSpeed >= 0.25 && newSpeed <= 4.0) {
+    if (newSpeed >= 0.1 && newSpeed <= 2.0) {
       _speed = newSpeed;
       notifyListeners();
     }
