@@ -16,7 +16,8 @@ class _SortingScreenState extends State<SortingScreen> {
 
   Future<void> startSorting(SortingProvider provider) async {
     if (provider.state == SortingState.sorting ||
-        provider.state == SortingState.paused) return;
+        provider.state == SortingState.paused)
+      return;
 
     provider.setState(SortingState.sorting);
     _isPaused.value = false;
@@ -70,11 +71,9 @@ class _SortingScreenState extends State<SortingScreen> {
                           // Algorithm Dropdown
                           DropdownButton<SortingAlgorithm>(
                             value: provider.selectedAlgorithm,
-                            dropdownColor:
-                                Theme.of(context).colorScheme.surface,
+                            dropdownColor: Colors.amber,
                             style: TextStyle(
-                              color:
-                                  Theme.of(context).colorScheme.onSurface,
+                              color: Theme.of(context).colorScheme.onSurface,
                             ),
                             items: SortingAlgorithm.values.map((algorithm) {
                               return DropdownMenuItem(
@@ -108,8 +107,8 @@ class _SortingScreenState extends State<SortingScreen> {
                                   label: '${provider.speed}x',
                                   onChanged:
                                       provider.state != SortingState.sorting
-                                          ? provider.setSpeed
-                                          : null,
+                                      ? provider.setSpeed
+                                      : null,
                                 ),
                               ),
                             ],
@@ -117,21 +116,19 @@ class _SortingScreenState extends State<SortingScreen> {
                           const SizedBox(height: 16),
                           // Control Buttons
                           Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               _ControlButton(
                                 icon: Icons.shuffle,
-                                onPressed:
-                                    provider.state == SortingState.idle
-                                        ? provider.generateRandomArray
-                                        : null,
+                                onPressed: provider.state == SortingState.idle
+                                    ? provider.generateRandomArray
+                                    : null,
                                 tooltip: 'Shuffle',
                               ),
                               _ControlButton(
                                 icon: Icons.play_arrow,
-                                onPressed: provider.state ==
-                                            SortingState.idle ||
+                                onPressed:
+                                    provider.state == SortingState.idle ||
                                         provider.state == SortingState.paused
                                     ? () {
                                         if (provider.state ==
@@ -149,19 +146,19 @@ class _SortingScreenState extends State<SortingScreen> {
                                 icon: Icons.pause,
                                 onPressed:
                                     provider.state == SortingState.sorting
-                                        ? () {
-                                            _isPaused.value = true;
-                                            provider.pause();
-                                          }
-                                        : null,
+                                    ? () {
+                                        _isPaused.value = true;
+                                        provider.pause();
+                                      }
+                                    : null,
                                 tooltip: 'Pause',
                               ),
                               _ControlButton(
                                 icon: Icons.refresh,
                                 onPressed:
                                     provider.state != SortingState.sorting
-                                        ? provider.reset
-                                        : null,
+                                    ? provider.reset
+                                    : null,
                                 tooltip: 'Reset',
                               ),
                             ],
@@ -181,11 +178,11 @@ class _SortingScreenState extends State<SortingScreen> {
                           builder: (context, constraints) {
                             return ModernBarVisualizer(
                               numbers: provider.numbers,
-                              highlightedIndices:
-                                  provider.highlightedIndices,
+                              highlightedIndices: provider.highlightedIndices,
                               maxHeight: constraints.maxHeight,
-                              accentColor:
-                                  Theme.of(context).colorScheme.primary,
+                              accentColor: Theme.of(
+                                context,
+                              ).colorScheme.primary,
                             );
                           },
                         ),
