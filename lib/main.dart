@@ -17,19 +17,35 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Sorting Visualizer',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark().copyWith(
-          colorScheme: ColorScheme.dark(
-            primary: Colors.blue.shade300,
-            secondary: Colors.blueGrey.shade400,
-            surface: Colors.grey.shade900,
-            background: Colors.black,
+        theme: ThemeData(
+          useMaterial3: true,
+          brightness: Brightness.light,
+          colorScheme: ColorScheme.light(
+            primary: Colors.blue.shade600,
+            secondary: Colors.blueGrey.shade300,
+            surface: Colors.grey.shade50,
+            background: Colors.white,
+            onBackground: Colors.grey.shade900,
+            onSurface: Colors.grey.shade900,
           ),
-          scaffoldBackgroundColor: Colors.black,
+          scaffoldBackgroundColor: Colors.white,
+          cardTheme: CardTheme.of(context).copyWith(
+            color: Colors.white,
+            elevation: 4,
+            shadowColor: Colors.blue.shade100,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          sliderTheme: SliderThemeData(
+            activeTrackColor: Colors.blue.shade600,
+            inactiveTrackColor: Colors.blue.shade100,
+            thumbColor: Colors.blue.shade600,
+            overlayColor: Colors.blue.shade100.withOpacity(0.3),
+          ),
         ),
         home: const SortingScreen(),
       ),
     );
   }
 }
-
-

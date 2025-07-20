@@ -34,8 +34,11 @@ class ModernBarVisualizer extends StatelessWidget {
     // Create gradient effect based on value
     final hsl = HSLColor.fromColor(baseColor);
     final progress = numbers[index] / numbers.reduce((a, b) => a > b ? a : b);
+    
+    // For light theme, we'll use a different gradient strategy
     return hsl
-        .withLightness((hsl.lightness * 0.5 + progress * 0.5).clamp(0.0, 1.0))
+        .withLightness(((1 - progress) * 0.3 + 0.3).clamp(0.0, 1.0))
+        .withSaturation(0.7)
         .toColor();
   }
 
