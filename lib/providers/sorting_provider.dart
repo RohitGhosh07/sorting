@@ -10,8 +10,11 @@ class SortingProvider with ChangeNotifier {
   SortingAlgorithm _selectedAlgorithm = SortingAlgorithm.bubble;
   SortingState _state = SortingState.idle;
   Set<int> _highlightedIndices = {};
-  int _arraySize = 50;
-  int _delay = 50; // milliseconds
+  int _arraySize = 50;  double _speed = 1.0; // Speed multiplier (1.0 = normal speed)
+  int _baseDelay = 200; // Base delay in milliseconds (increased for slower default speed)
+  
+  // Delay calculation based on speed
+  int get delay => (_baseDelay / _speed).round();
 
   // Getters
   List<int> get numbers => _numbers;
@@ -20,6 +23,7 @@ class SortingProvider with ChangeNotifier {
   Set<int> get highlightedIndices => _highlightedIndices;
   bool get isSorting => _state == SortingState.sorting;
   bool get isPaused => _state == SortingState.paused;
+  double get speed => _speed;
 
   SortingProvider() {
     generateRandomArray();
@@ -71,5 +75,13 @@ class SortingProvider with ChangeNotifier {
 
   Future<void> reset() async {
     generateRandomArray();
+  }
+
+  // Speed control
+  void setSpeed(double newSpeed) {
+    if (newSpeed >= 0.25 && newSpeed <= 4.0) {
+      _speed = newSpeed;
+      notifyListeners();
+    }
   }
 }

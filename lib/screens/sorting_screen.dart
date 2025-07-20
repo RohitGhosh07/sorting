@@ -32,7 +32,7 @@ class _SortingScreenState extends State<SortingScreen> {
           onUpdate: provider.updateNumbers,
           onHighlight: provider.setHighlightedIndices,
           isPaused: _isPaused,
-          delay: 50,
+          delay: provider.delay,
         );
       } else {
         await SortingAlgorithms.mergeSort(
@@ -40,7 +40,7 @@ class _SortingScreenState extends State<SortingScreen> {
           onUpdate: provider.updateNumbers,
           onHighlight: provider.setHighlightedIndices,
           isPaused: _isPaused,
-          delay: 50,
+          delay: provider.delay,
         );
       }
       provider.setState(SortingState.completed);
@@ -100,6 +100,27 @@ class _SortingScreenState extends State<SortingScreen> {
                                   }
                                 }
                               : null,
+                        ),
+                        const SizedBox(height: 16),
+                        // Speed Control Slider
+                        Row(
+                          children: [
+                            const Icon(Icons.speed, size: 20),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Slider(
+                                value: provider.speed,
+                                min: 0.25,
+                                max: 4.0,
+                                divisions: 15,
+                                label: '${provider.speed}x',
+                                onChanged:
+                                    provider.state != SortingState.sorting
+                                    ? provider.setSpeed
+                                    : null,
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 16),
                         // Control Buttons
